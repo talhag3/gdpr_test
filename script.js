@@ -2,6 +2,7 @@
     console.log("***************GDPR***************")
     window.onload = function(){
         console.log("Window onload")
+        checkConcent();
     }
     
     function checkConcent(){
