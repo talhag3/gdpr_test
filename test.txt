@@ -2,3 +2,9 @@
 <div id="cn-test-gdpr">
     <script src="https://talhag3.github.io/gdpr_test/script.js"></script>
 </div>
+
+
+<!------------------------------------>
+
+Vendor List
+__tcfapi('getTCData', 2, function(data,success){console.log(data);},[2,6,8,10]);
