@@ -20,14 +20,163 @@
     </style>
 </head>
 <body>
-<!-- Start Uniconsent Code -->
-<script async src="https://t.pubperf.com/t/57d36ae380.js"></script>
-<script type="text/javascript">
-!function(){var i,r,o;i="__tcfapiLocator",r=[],(o=window.frames[i])||(function e(){var t=window.document,a=!!o;if(!a)if(t.body){var n=t.createElement("iframe");n.style.cssText="display:none",n.name=i,t.body.appendChild(n)}else setTimeout(e,5);return!a}(),window.__tcfapi=function(){for(var e,t=[],a=0;a<arguments.length;a++)t[a]=arguments[a];if(!t.length)return r;if("setGdprApplies"===t[0])3<t.length&&2===parseInt(t[1],10)&&"boolean"==typeof t[3]&&(e=t[3],"function"==typeof t[2]&&t[2]("set",!0));else if("ping"===t[0]){var n={gdprApplies:e,cmpLoaded:!1,cmpStatus:"stubCMP",apiVersion:2};"function"==typeof t[2]&&t[2](n,!0)}else r.push(t)},window.addEventListener("message",function(n){var i="string"==typeof n.data,e={};try{e=i?JSON.parse(n.data):n.data}catch(e){}var r=e.__tcfapiCall;r&&window.__tcfapi(r.command,r.version,function(e,t){var a={__tcfapiReturn:{returnValue:e,success:t,callId:r.callId}};i&&(a=JSON.stringify(a)),n.source.postMessage(a,"*")},r.parameter)},!1))}();
-!function(){var i,n,s;i="__uspapiLocator",n=[],(s=window.frames[i])||(function a(){var e=window.document,n=!!s;if(!s)if(e.body){var t=e.createElement("iframe");t.style.cssText="display:none",t.name=i,e.body.appendChild(t)}else setTimeout(a,5);return!n}(),window.__uspapi=function(){for(var a=[],e=0;e<arguments.length;e++)a[e]=arguments[e];if(!a.length)return n;"ping"===a[0]?"function"==typeof a[2]&&a[2]({cmpLoaded:!1,cmpStatus:"stubCMP"},!0):n.push(a)},window.addEventListener("message",function(t){var i="string"==typeof t.data,a={};try{a=i?JSON.parse(t.data):t.data}catch(a){}var s=a.__uspapiCall;s&&window.__uspapi(s.command,s.version,function(a,e){var n={__uspapiReturn:{returnValue:a,success:e,callId:s.callId}};i&&(n=JSON.stringify(n)),t.source.postMessage(n,"*")},s.parameter)},!1))}();
+<!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://quantcast.mgr.consensu.org'
+    .concat('/choice/', 'B5zV-7-7jFrpC', '/', host, '/choice.js')
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            event.source.postMessage(returnMsg, '*');
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
 </script>
-<script async src='https://cmp.uniconsent.com/v2/57d3674038/cmp.js'></script>
-<!-- End Uniconsent Code -->
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
 
     <h1>Test Page</h1>
     <script src="./script.js"></script>
