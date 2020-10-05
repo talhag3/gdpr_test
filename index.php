@@ -35,7 +35,7 @@ scpt.parentNode.insertBefore(elem, scpt);
 
 _qevents.push({
 qacct:"p-fQr-P5f1jBwwe",
-uid:"__INSERT_EMAIL_HERE__"
+uid:"ciwime7454@pickybuys.com"
 });
 </script>
 
