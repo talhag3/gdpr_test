@@ -2,16 +2,17 @@
     console.log("***************GDPR***************")
     window.onload = function(){
         console.log("Window onload")
-        const callback = (tcData, success) => {
-            if(success && tcData.eventStatus === 'tcloaded') {
-              // do something with tcData.tcString
-              console.log(tcData)
-            } else {
-              // do something else
+        __tcfapi('addEventListener', 2, function(tcData, success) {
+            if (success) {
+                if (tcData.gdprApplies) {
+                    if (tcData.eventStatus == 'useractioncomplete' || tcData.eventStatus == 'tcloaded') {
+                        console.log(tcData)
+                    }
+                } else {
+                    console.log("No Success")
+                }
             }
-        }
-          
-        __tcfapi('addEventListener', 2, callback);
+        });
     }
     
     function checkConcent(){
